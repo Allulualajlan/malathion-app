@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ملاذ — مساحة آمنة للاندماج والدعم المجتمعي</title>
+  <!-- تحميل خط عربي واضح ومريح للعين -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- تحميل مكتبة Tailwind CSS للتنسيق السريع والمتجاوب -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'Tajawal', 'sans-serif'],
+          },
+          colors: {
+            malath: {
+              teal: '#2A7B76',
+              tealDark: '#1E5D59',
+              tealSoft: '#E6F3F2',
+              sand: '#F7F3EC',
+              sandCard: '#FFFDF9',
+              sandBorder: '#E7DEC8',
+              slate: '#1F2D36',
+              slateMuted: '#526570',
+              amberCalm: '#C98A3C',
+              amberSoft: '#FDF4E7',
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 30px -10px rgba(31, 45, 54, 0.08)',
+            float: '0 14px 28px -8px rgba(42, 123, 118, 0.22)',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* ضبط السلوك العام وتجربة القراءة والراحة البصرية */
+    :root {
+      --font-scale: 1;
+    }
+
+    html {
+      font-size: calc(16px * var(--font-scale));
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #F7F3EC;
+      color: #1F2D36;
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* وضع التباين العالي المريح عند تفعيله */
+    body.high-contrast {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+    }
+
+    body.high-contrast .malath-surface {
+      background-color: #FFFFFF !important;
+      border: 2px solid #0F172A !important;
+      box-shadow: none !important;
+    }
+
+    body.high-contrast .malath-muted {
+      color: #1E293B !important;
+    }
+
+    /* تقليل الحركة للمستخدمين الذين يفضلون واجهة ساكنة */
+    body.reduce-motion *,
+    body.reduce-motion *::before,
+    body.reduce-motion *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    /* إخفاء شريط التمرير مع الإبقاء على قابلية التمرير في شرائط الفلاتر */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .screen-enter {
+      animation: fadeSlideIn 0.28s ease-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-malath-sand text-malath-slate selection:bg-malath-tealSoft selection:text-malath-tealDark">
+  <!-- حاوية التطبيق الرئيسية بتصميم يركز على الجوال ويتوسع بسلاسة على الشاشات الأكبر -->
+  <div id="app" class="min-h-screen flex flex-col max-w-md md:max-w-3xl lg:max-w-5xl mx-auto px-3 sm:px-5 py-3 sm:py-6">
+
+    <!-- الشريط العلوي الثابت للتطبيق -->
+    <header class="malath-surface bg-malath-sandCard/95 backdrop-blur border border-malath-sandBorder rounded-3xl px-4 py-3.5 shadow-soft flex items-center justify-between gap-3 sticky top-2 z-30">
+      <div class="flex items-center gap-3 min-w-0">
+        <!-- شعار ملاذ الهندسي الهادئ -->
+        <div class="w-11 h-11 rounded-2xl bg-malath-teal text-white flex items-center justify-center shrink-0 shadow-sm" aria-hidden="true">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l8 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5L12 3z" />
+            <path d="M9 21v-6a3 3 0 0 1 6 0v6" />
+            <circle cx="12" cy="9" r="1.5" fill="currentColor" stroke="none" />
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg sm:text-xl font-extrabold text-malath-slate tracking-tight truncate">ملاذ</h1>
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-malath-tealSoft text-malath-tealDark shrink-0">
+              مساحة آمنة
+            </span>
+          </div>
+          <p class="malath-muted text-xs text-malath-slateMuted truncate">
+            للاندماج، الإصغاء، والتواصل المجتمعي الداعم
+          </p>
+        </div>
+      </div>
+
+      <!-- أزرار سريعة للراحة البصرية والهدوء -->
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button
+          id="quick-calm-btn"
+          type="button"
+          onclick="toggleQuietMode()"
+          class="p-2.5 rounded-2xl border border-malath-sandBorder bg-malath-sand hover:bg-malath-tealSoft text-malath-slate transition focus:outline-none focus:ring-2 focus:ring-malath-teal"
+          title="وضع الهدوء وتقليل التنبيهات"
+          aria-label="وضع الهدوء وتقليل التنبيهات"
+        >
+          <span id="quiet-mode-icon" class="text-base leading-none">🌿</span>
+        </button>
+        <button
+          type="button"
+          onclick="navigateTo('profile')"
+          class="px-3 py-2 rounded-2xl bg-malath-tealSoft hover:bg-malath-teal hover:text-white text-malath-tealDark text-xs font-bold transition flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-malath-teal"
+        >
+          <span>تفضيلاتي</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- صندوق الإشعارات والرسائل التوضيحية (بديل آمن وودود لأي تنبيه) -->
+    <div id="toast-banner" class="hidden mt-3 malath-surface bg-malath-tealDark text-white rounded-2xl px-4 py-3 shadow-float flex items-center justify-between gap-3 screen-enter" role="status" aria-live="polite">
+      <div class="flex items-center gap-2.5 text-xs sm:text-sm font-medium">
+        <span>✨</span>
+        <span id="toast-text">تم تحديث تفضيلاتك بنجاح.</span>
+      </div>
+      <button
+        type="button"
+        onclick="hideToast()"
+        class="text-white/80 hover:text-white text-xs font-bold px-2 py-1 rounded-lg"
+        aria-label="إغلاق التنبيه"
+      >
+        إغلاق
+      </button>
+    </div>
+
+    <!-- شريط التنقل العلوي للشاشات المتوسطة والكبيرة -->
+    <nav aria-label="التنقل الرئيسي" class="hidden md:flex items-center justify-center gap-2 mt-4 malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-2xl p-1.5 shadow-soft">
+      <button data-nav="home" onclick="navigateTo('home')" class="nav-pill flex-1 py-2.5 px-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+        <span>الرئيسية</span>
+      </button>
+      <button data-nav="circles" onclick="navigateTo('circles')" class="nav-pill flex-1 py-2.5 px-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+        <span>دوائر الدعم</span>
+      </button>
+      <button data-nav="chat" onclick="navigateTo('chat')" class="nav-pill flex-1 py-2.5 px-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+        <span>محادثة آمنة</span>
+      </button>
+      <button data-nav="resources" onclick="navigateTo('resources')" class="nav-pill flex-1 py-2.5 px-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+        <span>الإرشاد والموارد</span>
+      </button>
+      <button data-nav="profile" onclick="navigateTo('profile')" class="nav-pill flex-1 py-2.5 px-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+        <span>حسابي والراحة</span>
+      </button>
+    </nav>
+
+    <!-- منطقة المحتوى الرئيسية المتغيرة حسب الشاشة النشطة -->
+    <main id="screen-container" class="flex-1 mt-4 pb-24 md:pb-8 screen-enter">
+      <!-- يتم حقن محتوى الشاشات ديناميكياً عبر JavaScript -->
+    </main>
+
+    <!-- شريط التنقل السفلي للجوال بتصميم مريح للإبهام -->
+    <nav aria-label="شريط التنقل السفلي" class="md:hidden fixed bottom-2.5 left-3 right-3 max-w-md mx-auto malath-surface bg-malath-sandCard/95 backdrop-blur border border-malath-sandBorder rounded-3xl px-1.5 py-1.5 shadow-float z-30">
+      <div class="grid grid-cols-5 gap-1">
+        <button data-nav="home" onclick="navigateTo('home')" class="mobile-nav-btn flex flex-col items-center justify-center py-2 px-1 rounded-2xl text-[11px] font-bold transition">
+          <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z" />
+          </svg>
+          <span>الرئيسية</span>
+        </button>
+        <button data-nav="circles" onclick="navigateTo('circles')" class="mobile-nav-btn flex flex-col items-center justify-center py-2 px-1 rounded-2xl text-[11px] font-bold transition">
+          <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="9" r="3.5" />
+            <circle cx="16.5" cy="10.5" r="2.5" />
+            <path d="M3.5 19a5.5 5.5 0 0 1 11 0" />
+            <path d="M14.5 19a4.5 4.5 0 0 1 6.5 0" />
+          </svg>
+          <span>الدوائر</span>
+        </button>
+        <button data-nav="chat" onclick="navigateTo('chat')" class="mobile-nav-btn flex flex-col items-center justify-center py-2 px-1 rounded-2xl text-[11px] font-bold transition">
+          <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12c0 4.4-4 8-9 8a9.8 9.8 0 0 1-4.2-.9L3 20l1.2-3.6A7.5 7.5 0 0 1 3 12c0-4.4 4-8 9-8s9 3.6 9 8z" />
+          </svg>
+          <span>محادثة</span>
+        </button>
+        <button data-nav="resources" onclick="navigateTo('resources')" class="mobile-nav-btn flex flex-col items-center justify-center py-2 px-1 rounded-2xl text-[11px] font-bold transition">
+          <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+          </svg>
+          <span>الإرشاد</span>
+        </button>
+        <button data-nav="profile" onclick="navigateTo('profile')" class="mobile-nav-btn flex flex-col items-center justify-center py-2 px-1 rounded-2xl text-[11px] font-bold transition">
+          <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 20a8 8 0 0 1 16 0" />
+          </svg>
+          <span>تفضيلاتي</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    /**
+     * حالة التطبيق التفاعلية (State)
+     * تدير التنقل، الدوائر المجتمعية، المحادثة الآمنة، الفلاتر، وتفضيلات الراحة.
+     */
+    const state = {
+      activeScreen: 'home',
+      mood: 'هادئ ومستقر',
+      selectedTopic: 'الكل',
+      resourceCategory: 'الكل',
+      activeThreadId: 'circle-belonging',
+      draftMessage: '',
+      selectedStarter: '',
+      preferences: {
+        quietMode: false,
+        highContrast: false,
+        reduceMotion: false,
+        fontScale: 1, // 1 = عادي، 1.1 = أكبر قليلاً، 1.2 = كبير ومريح
+        anonymousByDefault: true,
+        gentleReminders: true,
+      },
+      circles: [
+        {
+          id: 'circle-belonging',
+          title: 'دائرة الانتماء وبداية جديدة',
+          topic: 'الانتماء والاندماج',
+          membersCount: 48,
+          schedule: 'الأحد والثلاثاء • 8:00 م',
+          summary: 'مساحة دافئة لمشاركة تجارب التأقلم والانتقال واللغة دون حكم أو استعجال.',
+          joined: true,
+          badge: 'نشطة الآن',
+        },
+        {
+          id: 'circle-wellbeing',
+          title: 'واحة السكينة وتوازن اليوم',
+          topic: 'الصحة النفسية',
+          membersCount: 64,
+          schedule: 'الإثنين والأربعاء • 9:00 م',
+          summary: 'تمارين تنفس بسيطة، مشاركة لحظات الامتنان، وتخفيف ضغط الأيام المزدحمة.',
+          joined: false,
+          badge: 'مفتوحة للانضمام',
+        },
+        {
+          id: 'circle-skills',
+          title: 'خطوة بخطوة في الدراسة والعمل',
+          topic: 'الدراسة والعمل',
+          membersCount: 39,
+          schedule: 'الخميس • 6:30 م',
+          summary: 'تبادل النصائح العملية حول السيرة الذاتية، تنظيم المهام، وبناء الثقة المهنية.',
+          joined: false,
+          badge: 'مفتوحة للانضمام',
+        },
+        {
+          id: 'circle-listening',
+          title: 'ركن الإصغاء بلا نصيحة فورية',
+          topic: 'الإصغاء الداعم',
+          membersCount: 27,
+          schedule: 'الجمعة • 5:00 م',
+          summary: 'إذا كنت تحتاج فقط من يسمعك بتفهم واحترام قبل أن تفكر في الحلول.',
+          joined: true,
+          badge: 'إشراف ميسّر',
+        }
+      ],
+      threads: {
+        'circle-belonging': {
+          title: 'دائرة الانتماء وبداية جديدة',
+          subtitle: 'إشراف مجتمعي لطيف • احترام الخصوصية أولاً',
+          messages: [
+            {
+              id: 'm1',
+              sender: 'سارة (ميسّرة الجلسة)',
+              role: 'ميسّرة',
+              time: '8:10 م',
+              text: 'أهلاً بكل من انضم اليوم إلى ملاذ. خذوا وقتكم في القراءة أو المشاركة، لا يوجد أي ضغط للتحدث قبل جاهزيتكم.',
+              isSelf: false,
+              supportCount: 7,
+            },
+            {
+              id: 'm2',
+              sender: 'عضو بلقب: نسمة',
+              role: 'عضو',
+              time: '8:14 م',
+              text: 'أول أسبوع لي في مكان جديد كان مرهقاً، لكن قراءة تجاربكم هنا خففت عني شعور الغربة.',
+              isSelf: false,
+              supportCount: 11,
+            }
+          ]
+        },
+        'circle-listening': {
+          title: 'ركن الإصغاء بلا نصيحة فورية',
+          subtitle: 'مساحة إصغاء وتعاطف فقط',
+          messages: [
+            {
+              id: 'm3',
+              sender: 'طارق (ميسّر الجلسة)',
+              role: 'ميسّرة',
+              time: '5:05 م',
+              text: 'هنا نمارس الإصغاء الحقيقي: نقرأ بقلب مفتوح وندعم بكلمة طيبة دون إصدار أحكام.',
+              isSelf: false,
+              supportCount: 5,
+            }
+          ]
+        }
+      },
+      resources: [
+        {
+          id: 'r1',
+          category: 'الاندماج والتواصل',
+          readTime: '3 دقائق قراءة',
+          title: 'كيف تبدأ حواراً مريحاً في بيئة أو مجتمع جديد؟',
+          excerpt: 'خطوات لطيفة لتجاوز رهبة البدايات وبناء علاقات متوازنة دون إجهاد اجتماعي.',
+          body: 'ابدأ بأسئلة مفتوحة بسيطة وواضحة، واحترم حدودك الشخصية عندما تشعر بالتعب. التواصل الحقيقي يبنى بالتراكم الهادئ لا بالاندفاع.',
+          saved: true,
+        },
+        {
+          id: 'r2',
+          category: 'الراحة النفسية',
+          readTime: '2 دقيقة قراءة',
+          title: 'قاعدة ٤-٤-٦ لتهدئة التوتر خلال اليوم',
+          excerpt: 'تمرين تنفس عملي يساعدك على استعادة صفاء الذهن قبل اجتماع أو محادثة مهمة.',
+          body: 'استنشق بهدوء لمدة ٤ ثوانٍ، أمسك النفس بلطف لمدة ٤ ثوانٍ، ثم أخرج الزفير ببطء لمدة ٦ ثوانٍ. كرر التمرين ثلاث مرات.',
+          saved: false,
+        },
+        {
+          id: 'r3',
+          category: 'الأمان الرقمي',
+          readTime: '4 دقائق قراءة',
+          title: 'حماية خصوصيتك وحدودك في المساحات الرقمية',
+          excerpt: 'إرشادات واضحة لاختيار الاسم المستعار، مشاركة ما يريحك فقط، وطلب الدعم عند الحاجة.',
+          body: 'في ملاذ، خصوصيتك أولوية. لست مضطراً لمشاركة معلوماتك الشخصية، ويمكنك إيقاف الإشعارات أو أخذ استراحة في أي وقت.',
+          saved: false,
+        }
+      ]
+    };
+
+    const moodOptions = [
+      { label: 'هادئ ومستقر', emoji: '🌿', note: 'أبحث عن مساحة مريحة ومتابعة هادئة' },
+      { label: 'أحتاج دعماً', emoji: '🤝', note: 'يسعدني تواصل داعم وكلمة مطمئنة' },
+      { label: 'متحمس للتواصل', emoji: '☀️', note: 'مستعد للمشاركة والتفاعل مع الدوائر' },
+      { label: 'أفضل التصفح فقط', emoji: '📖', note: 'سأقرأ وأستكشف دون إرسال رسائل الآن' },
+    ];
+
+    const supportiveStarters = [
+      'أقدر صراحتك وصدق مشاركتك، وأتمنى لك أياماً أخف وأكثر طمأنينة.',
+      'لست وحدك في هذا الشعور، خطوة صغيرة ومريحة اليوم تكفي.',
+      'شكراً لأنك شاركتنا تجربتك بوضوح واحترام.',
+    ];
+
+    /**
+     * عرض رسالة تنبيه مؤقتة داخل الواجهة
+     */
+    function showToast(message) {
+      try {
+        const banner = document.getElementById('toast-banner');
+        const textEl = document.getElementById('toast-text');
+        if (!banner || !textEl) return;
+        textEl.textContent = message;
+        banner.classList.remove('hidden');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+          hideToast();
+        }, 3200);
+      } catch (err) {
+        console.error('خطأ في عرض التنبيه:', err);
+      }
+    }
+
+    function hideToast() {
+      const banner = document.getElementById('toast-banner');
+      if (banner) banner.classList.add('hidden');
+    }
+
+    /**
+     * تطبيق تفضيلات الراحة وإمكانية الوصول على الصفحة
+     */
+    function applyAccessibilityPreferences() {
+      try {
+        const { highContrast, reduceMotion, fontScale, quietMode } = state.preferences;
+        document.body.classList.toggle('high-contrast', Boolean(highContrast));
+        document.body.classList.toggle('reduce-motion', Boolean(reduceMotion));
+        document.documentElement.style.setProperty('--font-scale', String(fontScale || 1));
+
+        const quietIcon = document.getElementById('quiet-mode-icon');
+        if (quietIcon) {
+          quietIcon.textContent = quietMode ? '🔕' : '🌿';
+        }
+      } catch (err) {
+        console.error('خطأ في تطبيق التفضيلات:', err);
+      }
+    }
+
+    function toggleQuietMode() {
+      state.preferences.quietMode = !state.preferences.quietMode;
+      applyAccessibilityPreferences();
+      showToast(
+        state.preferences.quietMode
+          ? 'تم تفعيل وضع الهدوء وتقليل التنبيهات.'
+          : 'تم إيقاف وضع الهدوء والعودة للوضع المعتاد.'
+      );
+      if (state.activeScreen === 'profile') render();
+    }
+
+    /**
+     * التنقل بين الشاشات الخمس الرئيسية
+     */
+    function navigateTo(screenName) {
+      const validScreens = ['home', 'circles', 'chat', 'resources', 'profile'];
+      if (!validScreens.includes(screenName)) return;
+      state.activeScreen = screenName;
+      render();
+      window.scrollTo({ top: 0, behavior: state.preferences.reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    /**
+     * تحديث حالة المزاج اليومي
+     */
+    function setMood(moodLabel) {
+      state.mood = moodLabel;
+      showToast(`تم تسجيل حالتك اليوم: ${moodLabel}`);
+      render();
+    }
+
+    /**
+     * تصفية الدوائر المجتمعية حسب الموضوع
+     */
+    function filterCircles(topic) {
+      state.selectedTopic = topic;
+      render();
+    }
+
+    /**
+     * الانضمام إلى دائرة دعم أو مغادرتها
+     */
+    function toggleJoinCircle(circleId) {
+      const circle = state.circles.find((c) => c.id === circleId);
+      if (!circle) return;
+
+      circle.joined = !circle.joined;
+      circle.membersCount += circle.joined ? 1 : -1;
+
+      // إنشاء غرفة محادثة للدائرة عند الانضمام إن لم تكن موجودة
+      if (circle.joined && !state.threads[circle.id]) {
+        state.threads[circle.id] = {
+          title: circle.title,
+          subtitle: `${circle.topic} • مساحة دعم آمنة`,
+          messages: [
+            {
+              id: `welcome-${Date.now()}`,
+              sender: 'فريق ملاذ',
+              role: 'ميسّر',
+              time: 'الآن',
+              text: `مرحباً بك في "${circle.title}". هذه المساحة مخصصة للحوار الهادئ والدعم المتبادل.`,
+              isSelf: false,
+              supportCount: 2,
+            }
+          ]
+        };
+      }
+
+      if (circle.joined) {
+        state.activeThreadId = circle.id;
+      } else if (state.activeThreadId === circle.id) {
+        state.activeThreadId = 'circle-belonging';
+      }
+
+      showToast(
+        circle.joined
+          ? `انضممت إلى "${circle.title}".`
+          : `غادرت "${circle.title}" ويمكنك العودة في أي وقت.`
+      );
+      render();
+    }
+
+    function openCircleChat(circleId) {
+      if (!state.threads[circleId]) {
+        const circle = state.circles.find((c) => c.id === circleId);
+        state.threads[circleId] = {
+          title: circle ? circle.title : 'دائرة دعم',
+          subtitle: 'مساحة حوار آمنة',
+          messages: []
+        };
+      }
+      state.activeThreadId = circleId;
+      state.activeScreen = 'chat';
+      render();
+    }
+
+    /**
+     * إرسال رسالة داعمة في المحادثة الآمنة
+     */
+    function sendSupportMessage(event) {
+      if (event) event.preventDefault();
+      try {
+        const input = document.getElementById('chat-input');
+        const rawText = input ? input.value.trim() : state.draftMessage.trim();
+        if (!rawText) {
+          showToast('اكتب رسالة داعمة أولاً أو اختر عبارة جاهزة.');
+          return;
+        }
+
+        const thread = state.threads[state.activeThreadId] || state.threads['circle-belonging'];
+        const senderName = state.preferences.anonymousByDefault
+          ? 'أنت (باسم مستعار: رفيق هادئ)'
+          : 'أنت (ملفي الشخصي)';
+
+        thread.messages.push({
+          id: `msg-${Date.now()}`,
+          sender: senderName,
+          role: 'عضو',
+          time: 'الآن',
+          text: rawText,
+          isSelf: true,
+          supportCount: 1,
+        });
+
+        state.draftMessage = '';
+        state.selectedStarter = '';
+        showToast('تم إرسال رسالتك الداعمة بأمان.');
+        render();
+      } catch (err) {
+        console.error('خطأ أثناء إرسال الرسالة:', err);
+        showToast('تعذر إرسال الرسالة، حاول مرة أخرى.');
+      }
+    }
+
+    function applyStarter(text) {
+      state.draftMessage = text;
+      state.selectedStarter = text;
+      render();
+    }
+
+    function reactSupport(threadId, messageId) {
+      const thread = state.threads[threadId];
+      if (!thread) return;
+      const msg = thread.messages.find((m) => m.id === messageId);
+      if (!msg) return;
+      msg.supportCount += 1;
+      showToast('أرسلت إشارة دعم لطيفة.');
+      render();
+    }
+
+    /**
+     * تصفية وحفظ الإرشادات والموارد
+     */
+    function filterResources(category) {
+      state.resourceCategory = category;
+      render();
+    }
+
+    function toggleSaveResource(resourceId) {
+      const item = state.resources.find((r) => r.id === resourceId);
+      if (!item) return;
+      item.saved = !item.saved;
+      showToast(item.saved ? 'تم حفظ الإرشاد في مرجعك.' : 'تمت إزالة الإرشاد من المحفوظات.');
+      render();
+    }
+
+    /**
+     * تحديث خيارات التفضيلات وإمكانية الوصول
+     */
+    function updatePreference(key, value) {
+      state.preferences[key] = value;
+      applyAccessibilityPreferences();
+      showToast('تم حفظ التفضيل بنجاح.');
+      render();
+    }
+
+    /**
+     * بناء شاشة الرئيسية / النظرة العامة
+     */
+    function renderHomeScreen() {
+      const joinedCount = state.circles.filter((c) => c.joined).length;
+      const savedCount = state.resources.filter((r) => r.saved).length;
+      const currentMoodObj = moodOptions.find((m) => m.label === state.mood) || moodOptions[0];
+
+      return `
+        <section class="space-y-5">
+          <!-- بطاقة الترحيب الهادئة -->
+          <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 sm:p-6 shadow-soft">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div class="space-y-1.5">
+                <p class="text-xs font-bold text-malath-teal uppercase tracking-wide">
+                  مرحباً بك في ملاذ
+                </p>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-malath-slate leading-snug">
+                  مساحة إنسانية هادئة للانتماء والتواصل الآمن
+                </h2>
+                <p class="malath-muted text-sm text-malath-slateMuted leading-relaxed">
+                  صُمّم ملاذ ليمنحك حرية المشاركة بإيقاعك الخاص، مع احترام كامل لخصوصيتك وتنوع احتياجاتك اليومية.
+                </p>
+              </div>
+              <button
+                type="button"
+                onclick="navigateTo('circles')"
+                class="bg-malath-teal hover:bg-malath-tealDark text-white font-bold text-sm px-5 py-3 rounded-2xl shadow-float transition shrink-0 text-center"
+              >
+                استكشف دوائر الدعم
+              </button>
+            </div>
+
+            <!-- مؤشرات سريعة واضحة -->
+            <div class="grid grid-cols-3 gap-2.5 sm:gap-4 mt-5 pt-5 border-t border-malath-sandBorder text-center">
+              <div class="bg-malath-sand rounded-2xl p-3">
+                <div class="text-lg sm:text-xl font-extrabold text-malath-tealDark">${joinedCount}</div>
+                <div class="malath-muted text-xs text-malath-slateMuted font-medium">دوائر منضم إليها</div>
+              </div>
+              <div class="bg-malath-sand rounded-2xl p-3">
+                <div class="text-lg sm:text-xl font-extrabold text-malath-tealDark">${savedCount}</div>
+                <div class="malath-muted text-xs text-malath-slateMuted font-medium">إرشادات محفوظة</div>
+              </div>
+              <div class="bg-malath-sand rounded-2xl p-3">
+                <div class="text-xs sm:text-sm font-extrabold text-malath-tealDark truncate">${currentMoodObj.emoji} ${state.mood}</div>
+                <div class="malath-muted text-xs text-malath-slateMuted font-medium mt-0.5">حالتك اليوم</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- اختيار الحالة الشعورية اليومية بشكل مريح وغير ضاغط -->
+          <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 shadow-soft">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <h3 class="text-base font-extrabold text-malath-slate">كيف تشعر اليوم؟</h3>
+              <span class="text-xs text-malath-slateMuted malath-muted">اختياري وخاص بك</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              ${moodOptions.map((item) => {
+                const isSelected = state.mood === item.label;
+                return `
+                  <button
+                    type="button"
+                    onclick="setMood('${item.label}')"
+                    class="text-right p-3.5 rounded-2xl border transition flex items-start gap-3 ${
+                      isSelected
+                        ? 'bg-malath-tealSoft border-malath-teal text-malath-slate ring-1 ring-malath-teal'
+                        : 'bg-malath-sand/70 border-malath-sandBorder hover:bg-malath-sand text-malath-slate'
+                    }"
+                  >
+                    <span class="text-xl leading-none mt-0.5">${item.emoji}</span>
+                    <div class="min-w-0">
+                      <div class="text-sm font-bold">${item.label}</div>
+                      <div class="malath-muted text-xs text-malath-slateMuted mt-0.5">${item.note}</div>
+                    </div>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- وصول سريع إلى المحادثة الآمنة والإرشاد -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 shadow-soft flex flex-col justify-between gap-4">
+              <div>
+                <span class="inline-block text-xs font-bold px-2.5 py-1 rounded-full bg-malath-amberSoft text-malath-amberCalm mb-2">
+                  تواصل لطيف
+                </span>
+                <h3 class="text-lg font-extrabold text-malath-slate">محادثة آمنة وداعمة</h3>
+                <p class="malath-muted text-sm text-malath-slateMuted mt-1 leading-relaxed">
+                  شارك كلمة دعم أو اقرأ تجارب الآخرين في بيئة خاضعة لإشراف مراعٍ للخصوصية.
+                </p>
+              </div>
+              <button
+                type="button"
+                onclick="navigateTo('chat')"
+                class="w-full py-2.5 px-4 rounded-2xl border border-malath-teal text-malath-tealDark hover:bg-malath-teal hover:text-white font-bold text-sm transition"
+              >
+                الانتقال إلى المحادثة الآمنة
+              </button>
+            </div>
+
+            <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 shadow-soft flex flex-col justify-between gap-4">
+              <div>
+                <span class="inline-block text-xs font-bold px-2.5 py-1 rounded-full bg-malath-tealSoft text-malath-tealDark mb-2">
+                  دليل عملي
+                </span>
+                <h3 class="text-lg font-extrabold text-malath-slate">إرشادات الاندماج والسكينة</h3>
+                <p class="malath-muted text-sm text-malath-slateMuted mt-1 leading-relaxed">
+                  خطوات قصيرة ومبسطة لتنظيم الوقت، تهدئة التوتر، وحماية حدودك الرقمية.
+                </p>
+              </div>
+              <button
+                type="button"
+                onclick="navigateTo('resources')"
+                class="w-full py-2.5 px-4 rounded-2xl border border-malath-sandBorder bg-malath-sand hover:bg-malath-tealSoft text-malath-slate font-bold text-sm transition"
+              >
+                تصفح الإرشادات والموارد
+              </button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    /**
+     * بناء شاشة دوائر الدعم المجتمعية
+     */
+    function renderCirclesScreen() {
+      const topics = ['الكل', 'الانتماء والاندماج', 'الصحة النفسية', 'الدراسة والعمل', 'الإصغاء الداعم'];
+      const filtered = state.selectedTopic === 'الكل'
+        ? state.circles
+        : state.circles.filter((c) => c.topic === state.selectedTopic);
+
+      return `
+        <section class="space-y-4">
+          <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 shadow-soft">
+            <h2 class="text-xl font-extrabold text-malath-slate">دوائر الدعم المجتمعي</h2>
+            <p class="malath-muted text-sm text-malath-slateMuted mt-1">
+              اختر الدائرة التي تناسب اهتمامك أو حاجتك الحالية، ويمكنك الانضمام أو المغادرة في أي لحظة.
+            </p>
+
+            <!-- فلاتر المواضيع -->
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar mt-4 pb-1" role="tablist" aria-label="تصفية دوائر الدعم">
+              ${topics.map((topic) => {
+                const active = state.selectedTopic === topic;
+                return `
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected="${active}"
+                    onclick="filterCircles('${topic}')"
+                    class="px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition ${
+                      active
+                        ? 'bg-malath-teal text-white shadow-sm'
+                        : 'bg-malath-sand text-malath-slate hover:bg-malath-tealSoft border border-malath-sandBorder'
+                    }"
+                  >
+                    ${topic}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- قائمة الدوائر -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${filtered.map((circle) => `
+              <article class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 shadow-soft flex flex-col justify-between gap-4">
+                <div class="space-y-2.5">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-malath-tealSoft text-malath-tealDark">
+                      ${circle.topic}
+                    </span>
+                    <span class="text-xs font-semibold text-malath-amberCalm bg-malath-amberSoft px-2.5 py-1 rounded-full">
+                      ${circle.badge}
+                    </span>
+                  </div>
+
+                  <h3 class="text-lg font-extrabold text-malath-slate">${circle.title}</h3>
+                  <p class="malath-muted text-sm text-malath-slateMuted leading-relaxed">${circle.summary}</p>
+
+                  <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-malath-slateMuted malath-muted pt-1">
+                    <span>👥 ${circle.membersCount} عضو</span>
+                    <span>🕒 ${circle.schedule}</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 pt-2 border-t border-malath-sandBorder">
+                  <button
+                    type="button"
+                    onclick="toggleJoinCircle('${circle.id}')"
+                    class="flex-1 py-2.5 px-4 rounded-2xl text-sm font-bold transition ${
+                      circle.joined
+                        ? 'bg-malath-sand text-malath-slate border border-malath-sandBorder hover:bg-red-50 hover:text-red-700'
+                        : 'bg-malath-teal text-white hover:bg-malath-tealDark shadow-sm'
+                    }"
+                  >
+                    ${circle.joined ? 'منضم • مغادرة' : 'انضمام إلى الدائرة'}
+                  </button>
+                  <button
+                    type="button"
+                    onclick="openCircleChat('${circle.id}')"
+                    class="py-2.5 px-3.5 rounded-2xl bg-malath-tealSoft hover:bg-malath-teal hover:text-white text-malath-tealDark text-sm font-bold transition"
+                  >
+                    المحادثة
+                  </button>
+                </div>
+              </article>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    /**
+     * بناء شاشة المحادثة الآمنة والتواصل الداعم
+     */
+    function renderChatScreen() {
+      const threadKeys = Object.keys(state.threads);
+      if (!state.threads[state.activeThreadId] && threadKeys.length > 0) {
+        state.activeThreadId = threadKeys[0];
+      }
+      const currentThread = state.threads[state.activeThreadId];
+
+      return `
+        <section class="space-y-4">
+          <!-- رأس المحادثة واختيار الغرفة -->
+          <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-4 sm:p-5 shadow-soft">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <h2 class="text-lg sm:text-xl font-extrabold text-malath-slate">
+                  ${currentThread ? currentThread.title : 'محادثة آمنة'}
+                </h2>
+                <p class="malath-muted text-xs sm:text-sm text-malath-slateMuted mt-0.5">
+                  ${currentThread ? currentThread.subtitle : 'تواصل محترم ومريح'}
+                </p>
+              </div>
+              <span class="self-start sm:self-auto text-xs font-bold px-3 py-1.5 rounded-full bg-malath-tealSoft text-malath-tealDark">
+                ${state.preferences.anonymousByDefault ? '🎭 وضع الاسم المستعار مفعل' : '👤 الاسم الظاهر مفعل'}
+              </span>
+            </div>
+
+            <!-- التبديل بين الدوائر المفتوحة -->
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar mt-3.5 pt-3 border-t border-malath-sandBorder">
+              ${threadKeys.map((key) => {
+                const t = state.threads[key];
+                const active = key === state.activeThreadId;
+                return `
+                  <button
+                    type="button"
+                    onclick="state.activeThreadId='${key}'; render();"
+                    class="px-3.5 py-1.5 rounded-2xl text-xs font-bold whitespace-nowrap transition ${
+                      active
+                        ? 'bg-malath-slate text-white'
+                        : 'bg-malath-sand text-malath-slate hover:bg-malath-tealSoft'
+                    }"
+                  >
+                    ${t.title}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- سجل الرسائل الداعمة -->
+          <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-4 sm:p-5 shadow-soft space-y-3.5">
+            ${(currentThread?.messages || []).map((msg) => `
+              <div class="p-4 rounded-2xl border ${
+                msg.isSelf
+                  ? 'bg-malath-tealSoft/70 border-malath-teal/30 mr-0 sm:mr-8'
+                  : 'bg-malath-sand/80 border-malath-sandBorder ml-0 sm:ml-8'
+              }">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-extrabold text-malath-slate">${msg.sender}</span>
+                    ${msg.role === 'ميسّرة' ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-malath-teal text-white">ميسّر</span>' : ''}
+                  </div>
+                  <span class="text-[11px] text-malath-slateMuted malath-muted">${msg.time}</span>
+                </div>
+                <p class="text-sm text-malath-slate leading-relaxed">${msg.text}</p>
+                <div class="mt-3 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onclick="reactSupport('${state.activeThreadId}', '${msg.id}')"
+                    class="text-xs font-bold px-3 py-1 rounded-xl bg-malath-sandCard hover:bg-malath-tealSoft border border-malath-sandBorder text-malath-tealDark transition inline-flex items-center gap-1.5"
+                  >
+                    <span>🤍 دعم لطيف</span>
+                    <span>(${msg.supportCount})</span>
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+
+            <!-- عبارات دعم جاهزة لتسهيل المشاركة -->
+            <div class="pt-2">
+              <div class="text-xs font-bold text-malath-slateMuted malath-muted mb-2">
+                عبارات دعم جاهزة (اضغط لإدراجها في حقل الكتابة):
+              </div>
+              <div class="flex flex-wrap gap-2">
+                ${supportiveStarters.map((starter) => `
+                  <button
+                    type="button"
+                    onclick="applyStarter('${starter.replace(/'/g, "\\'")}')"
+                    class="text-right text-xs font-semibold px-3 py-2 rounded-2xl bg-malath-sand hover:bg-malath-tealSoft border border-malath-sandBorder text-malath-slate transition"
+                  >
+                    ${starter}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- نموذج إرسال رسالة جديدة -->
+            <form onsubmit="sendSupportMessage(event)" class="pt-3 border-t border-malath-sandBorder flex flex-col sm:flex-row gap-2.5">
+              <label for="chat-input" class="sr-only">اكتب رسالتك الداعمة</label>
+              <input
+                id="chat-input"
+                type="text"
+                value="${state.draftMessage.replace(/"/g, '&quot;')}"
+                oninput="state.draftMessage = this.value"
+                placeholder="اكتب كلمة داعمة أو شارك ما يريحك باحترام..."
+                class="flex-1 rounded-2xl border border-malath-sandBorder bg-malath-sand px-4 py-3 text-sm text-malath-slate placeholder:text-malath-slateMuted focus:outline-none focus:ring-2 focus:ring-malath-teal"
+              />
+              <button
+                type="submit"
+                class="bg-malath-teal hover:bg-malath-tealDark text-white font-bold text-sm px-6 py-3 rounded-2xl shadow-sm transition shrink-0"
+              >
+                إرسال بأمان
+              </button>
+            </form>
+          </div>
+        </section>
+      `;
+    }
+
+    /**
+     * بناء شاشة الإرشاد والموارد
+     */
+    function renderResourcesScreen() {
+      const categories = ['الكل', 'الاندماج والتواصل', 'الراحة النفسية', 'الأمان الرقمي'];
+      const items = state.resourceCategory === 'الكل'
+        ? state.resources
+        : state.resources.filter((r) => r.category === state.resourceCategory);
+
+      return `
+        <section class="space-y-4">
+          <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 shadow-soft">
+            <h2 class="text-xl font-extrabold text-malath-slate">الإرشاد والموارد</h2>
+            <p class="malath-muted text-sm text-malath-slateMuted mt-1">
+              محتوى إرشادي مختصر ومصمم للقراءة المريحة لدعم الاندماج والسكينة والأمان.
+            </p>
+
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar mt-4 pb-1">
+              ${categories.map((cat) => {
+                const active = state.resourceCategory === cat;
+                return `
+                  <button
+                    type="button"
+                    onclick="filterResources('${cat}')"
+                    class="px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition ${
+                      active
+                        ? 'bg-malath-teal text-white'
+                        : 'bg-malath-sand text-malath-slate hover:bg-malath-tealSoft border border-malath-sandBorder'
+                    }"
+                  >
+                    ${cat}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <div class="space-y-3.5">
+            ${items.map((item) => `
+              <article class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 shadow-soft space-y-2.5">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-malath-tealSoft text-malath-tealDark">
+                      ${item.category}
+                    </span>
+                    <span class="text-xs text-malath-slateMuted malath-muted">${item.readTime}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="toggleSaveResource('${item.id}')"
+                    class="text-xs font-bold px-3 py-1.5 rounded-xl border transition ${
+                      item.saved
+                        ? 'bg-malath-amberSoft border-malath-amberCalm text-malath-amberCalm'
+                        : 'bg-malath-sand border-malath-sandBorder text-malath-slate hover:bg-malath-tealSoft'
+                    }"
+                  >
+                    ${item.saved ? '★ محفوظ' : '☆ حفظ'}
+                  </button>
+                </div>
+
+                <h3 class="text-lg font-extrabold text-malath-slate">${item.title}</h3>
+                <p class="malath-muted text-sm text-malath-slateMuted font-medium">${item.excerpt}</p>
+                <p class="text-sm text-malath-slate bg-malath-sand/80 rounded-2xl p-3.5 leading-relaxed">
+                  ${item.body}
+                </p>
+              </article>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    /**
+     * بناء شاشة الحساب وتفضيلات الراحة وإمكانية الوصول
+     */
+    function renderProfileScreen() {
+      const { quietMode, highContrast, reduceMotion, fontScale, anonymousByDefault, gentleReminders } = state.preferences;
+
+      return `
+        <section class="space-y-4">
+          <!-- بطاقة الهوية والخصوصية -->
+          <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 shadow-soft">
+            <div class="flex items-center gap-3.5">
+              <div class="w-14 h-14 rounded-2xl bg-malath-tealSoft text-malath-tealDark flex items-center justify-center text-2xl font-bold shrink-0">
+                م
+              </div>
+              <div>
+                <h2 class="text-xl font-extrabold text-malath-slate">حسابي وتفضيلات الراحة</h2>
+                <p class="malath-muted text-sm text-malath-slateMuted">
+                  خصّص الواجهة لتناسب راحتك البصرية والحسية دون أي تعقيد.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- خيارات إمكانية الوصول والراحة -->
+          <div class="malath-surface bg-malath-sandCard border border-malath-sandBorder rounded-3xl p-5 shadow-soft space-y-4">
+            <h3 class="text-base font-extrabold text-malath-slate">إمكانية الوصول والراحة الحسية</h3>
+
+            <!-- حجم الخط -->
+            <div class="p-3.5 rounded-2xl bg-malath-sand/80 border border-malath-sandBorder space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-malath-slate">حجم النص</span>
+                <span class="text-xs font-bold text-malath-tealDark">${Math.round(fontScale * 100)}%</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onclick="updatePreference('fontScale', 1)"
+                  class="py-2 rounded-xl text-xs font-bold border transition ${
+                    fontScale === 1 ? 'bg-malath-teal text-white border-malath-teal' : 'bg-malath-sandCard text-malath-slate border-malath-sandBorder'
+                  }"
+                >
+                  عادي (100%)
+                </button>
+                <button
+                  type="button"
+                  onclick="updatePreference('fontScale', 1.1)"
+                  class="py-2 rounded-xl text-xs font-bold border transition ${
+                    fontScale === 1.1 ? 'bg-malath-teal text-white border-malath-teal' : 'bg-malath-sandCard text-malath-slate border-malath-sandBorder'
+                  }"
+                >
+                  مريح (110%)
+                </button>
+                <button
+                  type="button"
+                  onclick="updatePreference('fontScale', 1.2)"
+                  class="py-2 rounded-xl text-xs font-bold border transition ${
+                    fontScale === 1.2 ? 'bg-malath-teal text-white border-malath-teal' : 'bg-malath-sandCard text-malath-slate border-malath-sandBorder'
+                  }"
+                >
+                  كبير (120%)
+                </button>
+              </div>
+            </div>
+
+            <!-- مفاتيح التبديل التفاعلية -->
+            ${renderToggleRow(
+              'وضع الهدوء وتقليل التنبيهات',
+              'يقلل المحفزات البصرية والضجيج الرقمي أثناء التصفح.',
+              quietMode,
+              'quietMode'
+            )}
+            ${renderToggleRow(
+              'تباين عالٍ للوضوح',
+              'يزيد وضوح الحدود والنصوص لمن يفضلون تبايناً أقوى.',
+              highContrast,
+              'highContrast'
+            )}
+            ${renderToggleRow(
+              'تقليل الحركة والانتقالات',
+              'يجعل التنقل بين الشاشات مباشراً وساكناً قدر الإمكان.',
+              reduceMotion,
+              'reduceMotion'
+            )}
+            ${renderToggleRow(
+              'الظهور باسم مستعار افتراضياً',
+              'يحافظ على خصوصيتك عند إرسال الرسائل في الدوائر.',
+              anonymousByDefault,
+              'anonymousByDefault'
+            )}
+            ${renderToggleRow(
+              'تذكيرات لطيفة وغير ملحة',
+              'رسائل تشجيعية هادئة عند العودة لتصفح الإرشادات.',
+              gentleReminders,
+              'gentleReminders'
+            )}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderToggleRow(title, subtitle, enabled, prefKey) {
+      return `
+        <div class="flex items-center justify-between gap-4 p-3.5 rounded-2xl bg-malath-sand/70 border border-malath-sandBorder">
+          <div class="min-w-0">
+            <div class="text-sm font-bold text-malath-slate">${title}</div>
+            <div class="malath-muted text-xs text-malath-slateMuted mt-0.5">${subtitle}</div>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked="${enabled}"
+            aria-label="${title}"
+            onclick="updatePreference('${prefKey}', ${!enabled})"
+            class="w-13 h-7 w-12 rounded-full p-1 transition shrink-0 flex items-center ${
+              enabled ? 'bg-malath-teal justify-start' : 'bg-slate-300 justify-end'
+            }"
+          >
+            <span class="w-5 h-5 rounded-full bg-white shadow-sm block"></span>
+          </button>
+        </div>
+      `;
+    }
+
+    /**
+     * تحديث حالة أزرار التنقل العلوية والسفلية
+     */
+    function updateNavActiveStates() {
+      document.querySelectorAll('[data-nav]').forEach((btn) => {
+        const target = btn.getAttribute('data-nav');
+        const isActive = target === state.activeScreen;
+
+        if (btn.classList.contains('nav-pill')) {
+          btn.className = `nav-pill flex-1 py-2.5 px-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2 ${
+            isActive
+              ? 'bg-malath-teal text-white shadow-sm'
+              : 'text-malath-slate hover:bg-malath-tealSoft'
+          }`;
+        }
+
+        if (btn.classList.contains('mobile-nav-btn')) {
+          btn.className = `mobile-nav-btn flex flex-col items-center justify-center py-2 px-1 rounded-2xl text-[11px] font-bold transition ${
+            isActive
+              ? 'bg-malath-tealSoft text-malath-tealDark'
+              : 'text-malath-slateMuted hover:bg-malath-sand'
+          }`;
+        }
+      });
+    }
+
+    /**
+     * إعادة رسم الشاشة الحالية
+     */
+    function render() {
+      try {
+        const container = document.getElementById('screen-container');
+        if (!container) return;
+
+        let html = '';
+        switch (state.activeScreen) {
+          case 'circles':
+            html = renderCirclesScreen();
+            break;
+          case 'chat':
+            html = renderChatScreen();
+            break;
+          case 'resources':
+            html = renderResourcesScreen();
+            break;
+          case 'profile':
+            html = renderProfileScreen();
+            break;
+          case 'home':
+          default:
+            html = renderHomeScreen();
+            break;
+        }
+
+        container.innerHTML = html;
+        container.classList.remove('screen-enter');
+        void container.offsetWidth; // إعادة تشغيل حركة الدخول البسيطة
+        container.classList.add('screen-enter');
+
+        updateNavActiveStates();
+        applyAccessibilityPreferences();
+      } catch (err) {
+        console.error('خطأ أثناء عرض الواجهة:', err);
+      }
+    }
+
+    // تشغيل التطبيق عند اكتمال تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', () => {
+      render();
+    });
+  </script>
+</body>
+</html>
