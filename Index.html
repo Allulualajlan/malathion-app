@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ملاذ (Malath) — دليل الهوية والنموذج التفاعلي</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            malath: {
+              green: '#2F5D50',
+              greenDark: '#21443A',
+              greenSoft: '#E5EFEA',
+              sage: '#6E9185',
+              bg: '#F6F5F0',
+              card: '#FFFFFF',
+              sand: '#EFECE4',
+              ink: '#1C2824',
+              muted: '#5D6B65',
+              border: '#E2DDD3',
+              amber: '#C88A3B',
+              amberSoft: '#FDF5E8'
+            }
+          },
+          fontFamily: {
+            sans: ['"IBM Plex Sans Arabic"', '"Cairo"', 'sans-serif'],
+            display: ['"Cairo"', '"IBM Plex Sans Arabic"', 'sans-serif']
+          },
+          borderRadius: {
+            '3xl': '28px',
+            '4xl': '34px'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --malath-bg: #F6F5F0;
+      --malath-green: #2F5D50;
+      --malath-ink: #1C2824;
+      --malath-scale: 1;
+    }
+
+    html {
+      font-size: calc(16px * var(--malath-scale));
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--malath-bg);
+      color: var(--malath-ink);
+      font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    body.soft-contrast {
+      --malath-bg: #EFECE3;
+    }
+
+    body.calm-motion *,
+    body.calm-motion *::before,
+    body.calm-motion *::after {
+      transition-duration: 0.05s !important;
+      animation-duration: 0.05s !important;
+    }
+
+    .phone-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .phone-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .phone-scroll::-webkit-scrollbar-thumb {
+      background: rgba(47, 93, 80, 0.2);
+      border-radius: 9999px;
+    }
+
+    @keyframes gentleFade {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .screen-enter {
+      animation: gentleFade 0.24s ease forwards;
+    }
+  </style>
+</head>
+<body class="bg-malath-bg text-malath-ink antialiased selection:bg-malath-greenSoft selection:text-malath-green">
+  <!-- Toast / Status Notification Banner (replaces alert/confirm) -->
+  <div id="toastBanner" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden max-w-[92vw] sm:max-w-md w-full px-4">
+    <div class="bg-malath-green text-white px-4 py-3 rounded-2xl shadow-lg flex items-center justify-between gap-3 border border-white/15">
+      <div class="flex items-center gap-2.5 text-sm font-medium">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-300 shrink-0"></span>
+        <span id="toastMessage">تم تحديث التفضيل بهدوء.</span>
+      </div>
+      <button type="button" onclick="hideToast()" class="text-white/80 hover:text-white text-xs px-2 py-1 rounded-lg bg-white/10">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-malath-bg/90 backdrop-blur-md border-b border-malath-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <a href="#top" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-2xl bg-malath-green text-white flex items-center justify-center shadow-sm group-hover:bg-malath-greenDark transition">
+          <!-- Minimalist Malath Leaf/Sanctuary SVG Logo -->
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21c-4.97 0-9-3.58-9-8 0-4.8 4.4-8.8 9-10 4.6 1.2 9 5.2 9 10 0 4.42-4.03 8-9 8z" />
+            <path d="M12 21V8" />
+            <path d="M12 13l3.5-3" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-display font-bold text-lg text-malath-green leading-none">ملاذ</span>
+            <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-malath-greenSoft text-malath-green">Malath</span>
+          </div>
+          <p class="text-[11px] text-malath-muted mt-0.5 hidden sm:block">دليل الهوية البصرية والنموذج التفاعلي للتطبيق</p>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1 bg-malath-card p-1 rounded-2xl border border-malath-border">
+        <a href="#guide-section" class="px-3.5 py-1.5 rounded-xl text-sm font-medium text-malath-ink hover:bg-malath-greenSoft hover:text-malath-green transition">دليل الهوية (8 خطوات)</a>
+        <a href="#palette-section" class="px-3.5 py-1.5 rounded-xl text-sm font-medium text-malath-ink hover:bg-malath-greenSoft hover:text-malath-green transition">الألوان والراحة</a>
+        <a href="#prototype-section" class="px-3.5 py-1.5 rounded-xl text-sm font-medium text-malath-ink hover:bg-malath-greenSoft hover:text-malath-green transition">النموذج التفاعلي</a>
+        <a href="#export-section" class="px-3.5 py-1.5 rounded-xl text-sm font-medium text-malath-ink hover:bg-malath-greenSoft hover:text-malath-green transition">النشر والتسليم</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="jumpToScreen('comfort')" class="px-3 py-2 rounded-2xl text-xs sm:text-sm font-semibold bg-malath-greenSoft text-malath-green hover:bg-malath-green hover:text-white transition">
+          تفضيلات الراحة
+        </button>
+        <a href="#prototype-section" class="px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-semibold bg-malath-green text-white hover:bg-malath-greenDark transition shadow-sm">
+          جرّب التطبيق
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="top" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10 lg:pt-12 lg:pb-14">
+    <div class="bg-malath-card rounded-4xl border border-malath-border p-6 sm:p-10 shadow-sm relative overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-malath-greenSoft text-malath-green text-xs sm:text-sm font-semibold">
+            <span class="w-2 h-2 rounded-full bg-malath-green"></span>
+            هوية مشروع «ملاذ» — مساحة رقمية هادئة وآمنة للرفاه المجتمعي
+          </div>
+
+          <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-malath-ink leading-tight">
+            تواصل إنساني دافئ <span class="text-malath-green">بلا ضجيج أو ضغط</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-malath-muted leading-relaxed max-w-2xl">
+            يجمع «ملاذ» بين <strong class="text-malath-ink font-semibold">دليل هوية بصرية مريحة</strong> متكامل من 8 خطوات وبين <strong class="text-malath-ink font-semibold">نموذج تفاعلي حي</strong> يضم 5 شاشات رئيسية: الرئيسية، دوائر الدعم، المحادثة الآمنة، الإرشاد والموارد، وتفضيلات الراحة.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a href="#prototype-section" class="px-5 py-3 rounded-2xl bg-malath-green text-white font-semibold text-sm hover:bg-malath-greenDark transition shadow-sm">
+              استعراض الشاشات الخمس التفاعلية
+            </a>
+            <a href="#guide-section" class="px-5 py-3 rounded-2xl bg-malath-bg text-malath-ink border border-malath-border font-semibold text-sm hover:bg-malath-sand transition">
+              قراءة خطوات الهوية الـ 8
+            </a>
+          </div>
+
+          <!-- Key Identity Pills -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3">
+            <div class="bg-malath-bg rounded-2xl p-3 border border-malath-border">
+              <div class="text-xs text-malath-muted">اللون الأساسي</div>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="w-4 h-4 rounded-full bg-[#2F5D50] inline-block"></span>
+                <span class="font-mono text-xs font-bold text-malath-ink">#2F5D50</span>
+              </div>
+            </div>
+            <div class="bg-malath-bg rounded-2xl p-3 border border-malath-border">
+              <div class="text-xs text-malath-muted">خلفية الراحة</div>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="w-4 h-4 rounded-full bg-[#F6F5F0] border border-malath-border inline-block"></span>
+                <span class="font-mono text-xs font-bold text-malath-ink">#F6F5F0</span>
+              </div>
+            </div>
+            <div class="bg-malath-bg rounded-2xl p-3 border border-malath-border">
+              <div class="text-xs text-malath-muted">بناء الهوية</div>
+              <div class="font-display font-bold text-sm text-malath-green mt-1">8 خطوات متكاملة</div>
+            </div>
+            <div class="bg-malath-bg rounded-2xl p-3 border border-malath-border">
+              <div class="text-xs text-malath-muted">نموذج التطبيق</div>
+              <div class="font-display font-bold text-sm text-malath-green mt-1">5 شاشات تفاعلية</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Identity Summary Card -->
+        <div class="lg:col-span-5">
+          <div class="bg-malath-bg rounded-3xl border border-malath-border p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-malath-green bg-malath-greenSoft px-3 py-1 rounded-full">
+                ميثاق التجربة الهادئة
+              </span>
+              <span class="text-xs text-malath-muted">RTL • تجربة مريحة للعين</span>
+            </div>
+
+            <div class="bg-malath-card rounded-2xl p-4 border border-malath-border space-y-2">
+              <div class="text-sm font-bold text-malath-ink">لماذا «ملاذ»؟</div>
+              <p class="text-xs sm:text-sm text-malath-muted leading-relaxed">
+                كثير من المنصات الرقمية ترهق المستخدم بالإشعارات المتلاحقة والتباين الحاد والازدحام البصري. صُمم «ملاذ» ليكون ركناً مطمئناً يضع راحة المستخدم النفسية والبصرية في المقدمة.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="bg-malath-card rounded-2xl p-3.5 border border-malath-border">
+                <div class="text-xs font-bold text-malath-green">الراحة والزوايا</div>
+                <p class="text-xs text-malath-muted mt-1 leading-relaxed">حواف دائرية ناعمة ومساحات فراغ مدروسة تقلل التشتت البصري.</p>
+              </div>
+              <div class="bg-malath-card rounded-2xl p-3.5 border border-malath-border">
+                <div class="text-xs font-bold text-malath-green">إمكانية الوصول</div>
+                <p class="text-xs text-malath-muted mt-1 leading-relaxed">تحكم فوري بحجم الخط وتخفيف الحركة وتباين دافئ ومريح.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8-Step Brand Identity Guide Section -->
+  <section id="guide-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+      <div>
+        <span class="text-xs font-bold px-3 py-1 rounded-full bg-malath-greenSoft text-malath-green">الخطوات الثماني لبناء الهوية</span>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-malath-ink mt-2">دليل الهوية البصرية والتجريبية لـ «ملاذ»</h2>
+        <p class="text-sm sm:text-base text-malath-muted mt-1">اضغطي على أي خطوة لاستعراض تفاصيلها التطبيقية وكيفية انعكاسها في شاشات التطبيق.</p>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-malath-muted bg-malath-card px-3.5 py-2 rounded-2xl border border-malath-border self-start">
+        <span>الخطوة النشطة:</span>
+        <strong id="activeStepBadge" class="text-malath-green font-bold">01 / 08</strong>
+      </div>
+    </div>
+
+    <!-- Step Selector Pills -->
+    <div id="stepsTabBar" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 mb-6"></div>
+
+    <!-- Active Step Detailed Workspace -->
+    <div id="stepDetailCard" class="bg-malath-card rounded-3xl border border-malath-border p-6 sm:p-8 shadow-sm screen-enter"></div>
+  </section>
+
+  <!-- Palette, Typography & Spatial Comfort Section -->
+  <section id="palette-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="bg-malath-card rounded-3xl border border-malath-border p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+        <div>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-malath-greenSoft text-malath-green">نظام التصميم البصري</span>
+          <h2 class="font-display text-2xl font-bold text-malath-ink mt-2">لوحة الألوان الهادئة والزوايا المريحة</h2>
+        </div>
+        <span class="text-xs text-malath-muted">اضغطي على أي بطاقة لون لنسخ الكود HEX مباشرة</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <button type="button" onclick="copyHex('#2F5D50', 'أخضر ملاذ الهادئ')" class="text-right group bg-malath-bg rounded-2xl p-4 border border-malath-border hover:border-malath-green transition">
+          <div class="h-20 rounded-2xl bg-[#2F5D50] mb-3 flex items-end justify-between p-3 text-white">
+            <span class="text-xs font-medium bg-black/20 px-2 py-0.5 rounded-lg">أساسي</span>
+            <span class="font-mono text-xs font-bold">#2F5D50</span>
+          </div>
+          <div class="font-bold text-sm text-malath-ink group-hover:text-malath-green">أخضر ملاذ الهادئ</div>
+          <p class="text-xs text-malath-muted mt-0.5">للأزرار الرئيسية، العناوين، والسكينة والطمأنينة.</p>
+        </button>
+
+        <button type="button" onclick="copyHex('#F6F5F0', 'الخلفية الدافئة')" class="text-right group bg-malath-bg rounded-2xl p-4 border border-malath-border hover:border-malath-green transition">
+          <div class="h-20 rounded-2xl bg-[#F6F5F0] border border-malath-border mb-3 flex items-end justify-between p-3 text-malath-ink">
+            <span class="text-xs font-medium bg-white/80 px-2 py-0.5 rounded-lg">خلفية</span>
+            <span class="font-mono text-xs font-bold">#F6F5F0</span>
+          </div>
+          <div class="font-bold text-sm text-malath-ink group-hover:text-malath-green">الخلفية الدافئة</div>
+          <p class="text-xs text-malath-muted mt-0.5">بديل مريح للأبيض الناصع لتقليل إجهاد العين.</p>
+        </button>
+
+        <button type="button" onclick="copyHex('#E5EFEA', 'أخضر ناعم للشارات')" class="text-right group bg-malath-bg rounded-2xl p-4 border border-malath-border hover:border-malath-green transition">
+          <div class="h-20 rounded-2xl bg-[#E5EFEA] mb-3 flex items-end justify-between p-3 text-malath-green">
+            <span class="text-xs font-medium bg-white/70 px-2 py-0.5 rounded-lg">مساند</span>
+            <span class="font-mono text-xs font-bold">#E5EFEA</span>
+          </div>
+          <div class="font-bold text-sm text-malath-ink group-hover:text-malath-green">أخضر ناعم للشارات</div>
+          <p class="text-xs text-malath-muted mt-0.5">للحالات النشطة والوسوم اللطيفة والبطاقات المساندة.</p>
+        </button>
+
+        <button type="button" onclick="copyHex('#1C2824', 'نص الفحم الهادئ')" class="text-right group bg-malath-bg rounded-2xl p-4 border border-malath-border hover:border-malath-green transition">
+          <div class="h-20 rounded-2xl bg-[#1C2824] mb-3 flex items-end justify-between p-3 text-white">
+            <span class="text-xs font-medium bg-white/15 px-2 py-0.5 rounded-lg">نصوص</span>
+            <span class="font-mono text-xs font-bold">#1C2824</span>
+          </div>
+          <div class="font-bold text-sm text-malath-ink group-hover:text-malath-green">نص الفحم الهادئ</div>
+          <p class="text-xs text-malath-muted mt-0.5">قراءة واضحة ومريحة دون حدة الأسود المطلق.</p>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive App Prototype Section (All 5 Screens) -->
+  <section id="prototype-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <span class="text-xs font-bold px-3 py-1 rounded-full bg-malath-greenSoft text-malath-green">نموذج أولي حي وتفاعلي</span>
+      <h2 class="font-display text-2xl sm:text-3xl font-bold text-malath-ink mt-2">تجربة تطبيق «ملاذ» — الشاشات الخمس</h2>
+      <p class="text-sm sm:text-base text-malath-muted mt-1">تنقلي بين الشاشات الخمس من الشريط السفلي داخل الجوال أو من الأزرار السريعة بالجانب، وجرّبي الانضمام لدائرة دعم أو إرسال رسالة أو تعديل تفضيلات الراحة.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left / Side Controls & Screen Guide -->
+      <div class="lg:col-span-6 space-y-5">
+        <div class="bg-malath-card rounded-3xl border border-malath-border p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-display font-bold text-lg text-malath-ink">التنقل المباشر بين الشاشات</h3>
+            <span id="currentScreenPill" class="text-xs font-bold px-3 py-1 rounded-full bg-malath-greenSoft text-malath-green">الرئيسية</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button type="button" onclick="switchScreen('home')" data-screen-btn="home" class="screen-jump-btn flex items-center justify-between p-3.5 rounded-2xl border text-right transition bg-malath-green text-white border-malath-green">
+              <div>
+                <div class="font-bold text-sm">1. الرئيسية</div>
+                <div class="text-xs opacity-85">نبض اليوم وملخص الراحة</div>
+              </div>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-lg bg-white/15">Home</span>
+            </button>
+
+            <button type="button" onclick="switchScreen('circles')" data-screen-btn="circles" class="screen-jump-btn flex items-center justify-between p-3.5 rounded-2xl border text-right transition bg-malath-bg text-malath-ink border-malath-border hover:border-malath-green">
+              <div>
+                <div class="font-bold text-sm">2. دوائر الدعم</div>
+                <div class="text-xs text-malath-muted">مجموعات آمنة وميسّرة</div>
+              </div>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-lg bg-malath-greenSoft text-malath-green">Circles</span>
+            </button>
+
+            <button type="button" onclick="switchScreen('chat')" data-screen-btn="chat" class="screen-jump-btn flex items-center justify-between p-3.5 rounded-2xl border text-right transition bg-malath-bg text-malath-ink border-malath-border hover:border-malath-green">
+              <div>
+                <div class="font-bold text-sm">3. المحادثة الآمنة</div>
+                <div class="text-xs text-malath-muted">حوار هادئ بحدود واضحة</div>
+              </div>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-lg bg-malath-greenSoft text-malath-green">Chat</span>
+            </button>
+
+            <button type="button" onclick="switchScreen('guidance')" data-screen-btn="guidance" class="screen-jump-btn flex items-center justify-between p-3.5 rounded-2xl border text-right transition bg-malath-bg text-malath-ink border-malath-border hover:border-malath-green">
+              <div>
+                <div class="font-bold text-sm">4. الإرشاد والموارد</div>
+                <div class="text-xs text-malath-muted">أدلة قصيرة وتمارين تهدئة</div>
+              </div>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-lg bg-malath-greenSoft text-malath-green">Guidance</span>
+            </button>
+
+            <button type="button" onclick="switchScreen('comfort')" data-screen-btn="comfort" class="screen-jump-btn sm:col-span-2 flex items-center justify-between p-3.5 rounded-2xl border text-right transition bg-malath-bg text-malath-ink border-malath-border hover:border-malath-green">
+              <div>
+                <div class="font-bold text-sm">5. تفضيلات الراحة</div>
+                <div class="text-xs text-malath-muted">حجم الخط، وتيرة التنبيهات، وتخفيف الحركة</div>
+              </div>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-lg bg-malath-greenSoft text-malath-green">Comfort</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- How Prototype Connects to Brand Guide -->
+        <div class="bg-malath-card rounded-3xl border border-malath-border p-6 shadow-sm space-y-3">
+          <h3 class="font-display font-bold text-base text-malath-ink">كيف يترجم النموذج دليل الهوية؟</h3>
+          <ul class="space-y-2.5 text-sm text-malath-muted">
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-malath-greenSoft text-malath-green font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">✓</span>
+              <span>لا توجد عدادات تنافسية أو إشعارات حمراء مستفزة؛ كل تنبيه مصمم بهدوء واحترام لوقت المستخدم.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-malath-greenSoft text-malath-green font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">✓</span>
+              <span>تطبيق مباشر لألوان الهوية <strong class="text-malath-ink">#2F5D50</strong> و<strong class="text-malath-ink">#F6F5F0</strong> مع حواف دائرية مريحة للنظر.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-malath-greenSoft text-malath-green font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">✓</span>
+              <span>تفاعلية حقيقية: انضمي لدائرة دعم، أرسلي رسالة في المحادثة الآمنة، أو غيّري حجم الخط من شاشة «تفضيلات الراحة».</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: Mobile Phone Frame -->
+      <div class="lg:col-span-6 flex justify-center">
+        <div class="w-full max-w-[390px] bg-malath-ink rounded-4xl p-3 sm:p-3.5 shadow-2xl border-4 border-malath-ink/90">
+          <!-- Inner Phone Screen -->
+          <div class="bg-malath-bg rounded-[28px] overflow-hidden flex flex-col h-[680px] relative">
+            <!-- Status / Top App Bar -->
+            <div class="bg-malath-card px-4 py-3 border-b border-malath-border flex items-center justify-between shrink-0">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-malath-green"></span>
+                <span id="phoneHeaderTitle" class="font-display font-bold text-sm text-malath-ink">ملاذ • الرئيسية</span>
+              </div>
+              <span id="moodBadge" class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-malath-greenSoft text-malath-green">
+                حالتي: مطمئن
+              </span>
+            </div>
+
+            <!-- Scrollable Screen Content -->
+            <div id="phoneBody" class="flex-1 overflow-y-auto phone-scroll p-4 space-y-4 screen-enter">
+              <!-- SCREEN 1: HOME -->
+              <div id="screen-home" class="app-screen space-y-4">
+                <div class="bg-malath-green text-white rounded-3xl p-4 space-y-2">
+                  <div class="text-xs text-emerald-100/90">أهلاً بك في مساحتك الهادئة</div>
+                  <div class="font-display font-bold text-lg leading-snug">كيف تشعر اليوم دون أي تكلف؟</div>
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    <button type="button" onclick="setMood('مطمئن')" class="mood-chip px-3 py-1 rounded-full text-xs font-semibold bg-white text-malath-green">مطمئن</button>
+                    <button type="button" onclick="setMood('مرهق قليلاً')" class="mood-chip px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-white hover:bg-white/25">مرهق قليلاً</button>
+                    <button type="button" onclick="setMood('أحتاج إنصاتاً')" class="mood-chip px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-white hover:bg-white/25">أحتاج إنصاتاً</button>
+                  </div>
+                </div>
+
+                <div class="bg-malath-card rounded-2xl p-3.5 border border-malath-border flex items-center justify-between gap-3">
+                  <div>
+                    <div class="text-xs font-semibold text-malath-green">جلسة هادئة قادمة</div>
+                    <div class="text-sm font-bold text-malath-ink mt-0.5">دائرة «توازن البدايات الجديدة»</div>
+                    <div class="text-xs text-malath-muted mt-0.5">اليوم • 9:30 مساءً • مشاركة اختيارية</div>
+                  </div>
+                  <button type="button" onclick="switchScreen('circles')" class="px-3 py-2 rounded-xl bg-malath-greenSoft text-malath-green text-xs font-bold shrink-0">
+                    عرض الدوائر
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <button type="button" onclick="switchScreen('chat')" class="bg-malath-card rounded-2xl p-3.5 border border-malath-border text-right hover:border-malath-green transition">
+                    <div class="text-xs font-bold text-malath-green">المحادثة الآمنة</div>
+                    <p class="text-xs text-malath-muted mt-1">مساحة حوار دافئة بحدود واضحة.</p>
+                  </button>
+                  <button type="button" onclick="switchScreen('guidance')" class="bg-malath-card rounded-2xl p-3.5 border border-malath-border text-right hover:border-malath-green transition">
+                    <div class="text-xs font-bold text-malath-green">الإرشاد والموارد</div>
+                    <p class="text-xs text-malath-muted mt-1">بطاقة تهدئة سريعة في دقيقتين.</p>
+                  </button>
+                </div>
+
+                <div class="bg-malath-card rounded-2xl p-3.5 border border-malath-border">
+                  <div class="flex items-center justify-between text-xs mb-1.5">
+                    <span class="font-bold text-malath-ink">مؤشر الهدوء الرقمي اليوم</span>
+                    <span class="text-malath-green font-bold">مريح جداً</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-malath-bg overflow-hidden">
+                    <div class="h-full w-4/5 rounded-full bg-malath-green"></div>
+                  </div>
+                  <p class="text-[11px] text-malath-muted mt-2">بدون إشعارات مزعجة أو عدادات مقارنة.</p>
+                </div>
+              </div>
+
+              <!-- SCREEN 2: CIRCLES -->
+              <div id="screen-circles" class="app-screen hidden space-y-3.5">
+                <div class="bg-malath-card rounded-2xl p-3.5 border border-malath-border">
+                  <div class="font-display font-bold text-sm text-malath-ink">دوائر الدعم المجتمعي</div>
+                  <p class="text-xs text-malath-muted mt-0.5">دوائر صغيرة بإشراف لطيف؛ يمكنك الاستماع فقط دون إلزام بالكلام.</p>
+                </div>
+
+                <div class="bg-malath-card rounded-2xl p-4 border border-malath-border space-y-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-malath-greenSoft text-malath-green">نشطة الآن</span>
+                    <span class="text-xs text-malath-muted">12 عضواً</span>
+                  </div>
+                  <div class="font-bold text-sm text-malath-ink">دائرة السكينة والانتماء</div>
+                  <p class="text-xs text-malath-muted leading-relaxed">مساحة لمشاركة التجارب اليومية وتخفيف الشعور بالوحدة باحترام متبادل.</p>
+                  <button type="button" onclick="toggleCircle(this, 'دائرة السكينة والانتماء')" class="w-full py-2 rounded-xl bg-malath-green text-white text-xs font-bold hover:bg-malath-greenDark transition">
+                    انضمام هادئ للدائرة
+                  </button>
+                </div>
+
+                <div class="bg-malath-card rounded-2xl p-4 border border-malath-border space-y-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-malath-amberSoft text-malath-amber">تبدأ قريباً</span>
+                    <span class="text-xs text-malath-muted">8 أعضاء</span>
+                  </div>
+                  <div class="font-bold text-sm text-malath-ink">دائرة تنظيم الإيقاع والراحة</div>
+                  <p class="text-xs text-malath-muted leading-relaxed">حوار عملي حول وضع حدود صحية للعمل والدراسة والوقت الرقمي.</p>
+                  <button type="button" onclick="toggleCircle(this, 'دائرة تنظيم الإيقاع والراحة')" class="w-full py-2 rounded-xl bg-malath-greenSoft text-malath-green text-xs font-bold hover:bg-malath-green hover:text-white transition">
+                    انضمام هادئ للدائرة
+                  </button>
+                </div>
+              </div>
+
+              <!-- SCREEN 3: SAFE CHAT -->
+              <div id="screen-chat" class="app-screen hidden flex flex-col justify-between min-h-full space-y-3">
+                <div class="space-y-3">
+                  <div class="bg-malath-greenSoft text-malath-green rounded-2xl p-3 text-xs font-medium leading-relaxed">
+                    ميثاق المحادثة الآمنة: ننصت بتعاطف، نحترم المساحة الشخصية، ونتجنب الأحكام السريعة.
+                  </div>
+
+                  <div id="chatMessagesList" class="space-y-2.5">
+                    <div class="bg-malath-card rounded-2xl rounded-tr-sm p-3 border border-malath-border max-w-[85%]">
+                      <div class="text-[11px] font-bold text-malath-green mb-1">ميسّر الدائرة • سارة</div>
+                      <p class="text-xs text-malath-ink leading-relaxed">أهلاً بكم جميعاً. خذوا وقتكم في الكتابة، ولا حاجة للاستعجال.</p>
+                    </div>
+
+                    <div class="bg-malath-green text-white rounded-2xl rounded-tl-sm p-3 max-w-[85%] mr-auto">
+                      <p class="text-xs leading-relaxed">أعجبني جداً هدوء الواجهة، أشعر أنها مريحة ولا تسبب أي توتر.</p>
+                      <div class="text-[10px] text-emerald-100/80 mt-1">أنت • الآن</div>
+                    </div>
+                  </div>
+                </div>
+
+                <form onsubmit="sendSafeMessage(event)" class="bg-malath-card p-2 rounded-2xl border border-malath-border flex items-center gap-2 shrink-0">
+                  <input id="chatInput" type="text" placeholder="اكتب كلمة لطيفة أو مشاركة..." class="flex-1 bg-transparent text-xs px-2.5 py-2 text-malath-ink placeholder:text-malath-muted focus:outline-none" />
+                  <button type="submit" class="px-3.5 py-2 rounded-xl bg-malath-green text-white text-xs font-bold hover:bg-malath-greenDark transition">
+                    إرسال
+                  </button>
+                </form>
+              </div>
+
+              <!-- SCREEN 4: GUIDANCE -->
+              <div id="screen-guidance" class="app-screen hidden space-y-3.5">
+                <div class="bg-malath-card rounded-2xl p-3.5 border border-malath-border">
+                  <div class="font-display font-bold text-sm text-malath-ink">الإرشاد والموارد الموثوقة</div>
+                  <p class="text-xs text-malath-muted mt-0.5">خطوات قصيرة وعملية مصاغة بلغة واضحة وداعمة.</p>
+                </div>
+
+                <div class="bg-malath-card rounded-2xl p-4 border border-malath-border space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-malath-green">تمرين تهدئة • دقيقتان</span>
+                    <span class="text-[11px] text-malath-muted">سهل</span>
+                  </div>
+                  <div class="font-bold text-sm text-malath-ink">تنفّس 4-4-6 لاستعادة الهدوء</div>
+                  <p id="breathingStepText" class="text-xs text-malath-muted leading-relaxed">
+                    استنشق بهدوء لـ 4 ثوانٍ، أمسك النفس بلطف لـ 4 ثوانٍ، ثم أخرج الزفير ببطء لـ 6 ثوانٍ.
+                  </p>
+                  <button type="button" onclick="cycleBreathingTip()" class="mt-1 px-3 py-1.5 rounded-xl bg-malath-greenSoft text-malath-green text-xs font-bold hover:bg-malath-green hover:text-white transition">
+                    الخطوة التالية في التمرين
+                  </button>
+                </div>
+
+                <div class="bg-malath-card rounded-2xl p-4 border border-malath-border space-y-2">
+                  <div class="text-xs font-bold text-malath-green">دليل إرشادي مختصر</div>
+                  <div class="font-bold text-sm text-malath-ink">كيف تبني روتيناً رقمياً صحياً؟</div>
+                  <p class="text-xs text-malath-muted leading-relaxed">
+                    خصّص أوقاتاً واضحة للتصفح، وأوقف التنبيهات غير الضرورية أثناء التركيز أو قبل النوم.
+                  </p>
+                </div>
+              </div>
+
+              <!-- SCREEN 5: COMFORT PREFERENCES -->
+              <div id="screen-comfort" class="app-screen hidden space-y-3.5">
+                <div class="bg-malath-card rounded-2xl p-3.5 border border-malath-border">
+                  <div class="font-display font-bold text-sm text-malath-ink">تفضيلات الراحة وإمكانية الوصول</div>
+                  <p class="text-xs text-malath-muted mt-0.5">اضبط التجربة لتناسب راحتك البصرية والإدراكية فوراً.</p>
+                </div>
+
+                <div class="bg-malath-card rounded-2xl p-4 border border-malath-border space-y-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-malath-ink">حجم الخط العام</span>
+                    <span id="fontScaleLabel" class="text-xs font-bold text-malath-green">متوسط (100%)</span>
+                  </div>
+                  <div class="grid grid-cols-3 gap-2">
+                    <button type="button" onclick="setFontScale(0.95, 'هادئ (95%)')" class="py-2 rounded-xl bg-malath-bg border border-malath-border text-xs font-semibold hover:border-malath-green">هادئ</button>
+                    <button type="button" onclick="setFontScale(1, 'متوسط (100%)')" class="py-2 rounded-xl bg-malath-green text-white text-xs font-semibold">متوسط</button>
+                    <button type="button" onclick="setFontScale(1.08, 'مريح للقراءة (108%)')" class="py-2 rounded-xl bg-malath-bg border border-malath-border text-xs font-semibold hover:border-malath-green">مكبر</button>
+                  </div>
+                </div>
+
+                <div class="bg-malath-card rounded-2xl p-4 border border-malath-border flex items-center justify-between gap-3">
+                  <div>
+                    <div class="text-xs font-bold text-malath-ink">تخفيف الحركة والانتقالات</div>
+                    <div class="text-[11px] text-malath-muted mt-0.5">تقليل الحركات الانتقالية لراحة إضافية</div>
+                  </div>
+                  <button id="motionToggleBtn" type="button" onclick="toggleCalmMotion()" class="px-3.5 py-1.5 rounded-xl bg-malath-bg border border-malath-border text-xs font-bold text-malath-ink">
+                    مفعل بلطف
+                  </button>
+                </div>
+
+                <div class="bg-malath-card rounded-2xl p-4 border border-malath-border flex items-center justify-between gap-3">
+                  <div>
+                    <div class="text-xs font-bold text-malath-ink">خلفية أدفأ للعين</div>
+                    <div class="text-[11px] text-malath-muted mt-0.5">زيادة الدفء في الإضاءة المنخفضة</div>
+                  </div>
+                  <button id="contrastToggleBtn" type="button" onclick="toggleSoftContrast()" class="px-3.5 py-1.5 rounded-xl bg-malath-bg border border-malath-border text-xs font-bold text-malath-ink">
+                    قياسي
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom 5-Screen Navigation Bar inside Phone -->
+            <div class="bg-malath-card border-t border-malath-border px-1.5 py-2 grid grid-cols-5 gap-0.5 shrink-0">
+              <button type="button" onclick="switchScreen('home')" data-nav="home" class="phone-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-malath-green bg-malath-greenSoft font-bold">
+                <span class="text-[11px]">الرئيسية</span>
+              </button>
+              <button type="button" onclick="switchScreen('circles')" data-nav="circles" class="phone-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-malath-muted hover:text-malath-ink font-medium">
+                <span class="text-[11px]">الدوائر</span>
+              </button>
+              <button type="button" onclick="switchScreen('chat')" data-nav="chat" class="phone-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-malath-muted hover:text-malath-ink font-medium">
+                <span class="text-[11px]">المحادثة</span>
+              </button>
+              <button type="button" onclick="switchScreen('guidance')" data-nav="guidance" class="phone-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-malath-muted hover:text-malath-ink font-medium">
+                <span class="text-[11px]">الإرشاد</span>
+              </button>
+              <button type="button" onclick="switchScreen('comfort')" data-nav="comfort" class="phone-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-malath-muted hover:text-malath-ink font-medium">
+                <span class="text-[11px]">الراحة</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deployment & Submission Checklist Section -->
+  <section id="export-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-14">
+    <div class="bg-malath-card rounded-3xl border border-malath-border p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1.5">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-malath-greenSoft text-malath-green">جاهز للنشر عبر GitHub Pages</span>
+          <h2 class="font-display text-xl sm:text-2xl font-bold text-malath-ink">ملف واحد متكامل (`index.html`) جاهز للتسليم</h2>
+          <p class="text-sm text-malath-muted max-w-2xl">
+            يجمع هذا الملف دليل الهوية البصرية من 8 خطوات مع النموذج التفاعلي الكامل (5 شاشات) دون أي اعتماد خارجي معقد، ليعمل مباشرة عند رفعه إلى مستودع عام على GitHub وتفعيل GitHub Pages.
+          </p>
+        </div>
+
+        <button type="button" onclick="copySubmissionSummary()" class="px-5 py-3 rounded-2xl bg-malath-green text-white font-semibold text-sm hover:bg-malath-greenDark transition shadow-sm shrink-0">
+          نسخ وصف التسليم للمشروع
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /**
+     * 8-Step Brand Identity Guide Data for "ملاذ (Malath)"
+     */
+    const identitySteps = [
+      {
+        num: '01',
+        title: 'قصة العلامة والرؤية',
+        subtitle: 'لماذا وُجد «ملاذ» وما الأثر الإنساني الذي يصنعه؟',
+        summary: '«ملاذ» مساحة رقمية هادئة وآمنة للاندماج والتواصل المجتمعي والدعم، تمنح الأفراد ركناً مطمئناً يجمع بين الدفء الإنساني والوضوح دون ضجيج أو ضغط نفسي.',
+        highlights: [
+          'رؤية تضع الطمأنينة والانتماء قبل التنافس والضجيج.',
+          'تجربة مصممة لمن يبحث عن حوار صادق أو إرشاد عملي بسيط.',
+          'توازن متقن بين المحتوى المجتمعي الآمن والأدوات الشخصية.'
+        ],
+        prototypeLink: 'home',
+        prototypeLabel: 'معاينة في شاشة الرئيسية'
+      },
+      {
+        num: '02',
+        title: 'القيم الجوهرية والنبرة',
+        subtitle: 'المبادئ التي تحكم كل تفاعل وحوار داخل المنصة',
+        summary: 'تقوم الهوية على أربع قيم راسخة: السكينة، الأمان، الاحترام، والبساطة؛ بحيث يشعر المستخدم بأن صوته مسموع ووقته مصان.',
+        highlights: [
+          'سكينة: إيقاع هادئ بلا تنبيهات مستفزة أو أرقام مقلقة.',
+          'أمان: حدود واضحة وإشراف لطيف يحمي خصوصية المشاركين.',
+          'تعاطف: لغة إنسانية قريبة تشجع على المشاركة الطوعية.'
+        ],
+        prototypeLink: 'circles',
+        prototypeLabel: 'معاينة في دوائر الدعم'
+      },
+      {
+        num: '03',
+        title: 'الهوية البصرية واللوحة اللونية',
+        subtitle: 'الأخضر الهادئ #2F5D50 والخلفية الدافئة #F6F5F0',
+        summary: 'تعتمد الهوية على تناغم الأخضر الهادئ (#2F5D50) الذي يوحي بالنمو والسكينة مع الخلفية الدافئة (#F6F5F0) التي تخفف حدة الإضاءة وتمنح راحة بصرية مستمرة.',
+        highlights: [
+          'اللون الأساسي #2F5D50 للعناصر الفاعلة والعناوين الرئيسية.',
+          'الخلفية الدافئة #F6F5F0 لتقليل إجهاد العين أثناء القراءة المطولة.',
+          'درجات مساندة ناعمة تحافظ على تباين واضح ومريح.'
+        ],
+        prototypeLink: 'home',
+        prototypeLabel: 'استعراض الألوان في التطبيق'
+      },
+      {
+        num: '04',
+        title: 'الخطوط وإمكانية الوصول',
+        subtitle: 'وضوح عربي أصيل وتوافق مع احتياجات القراءة المختلفة',
+        summary: 'تُستخدم خطوط عربية واضحة ومقروءة مع مسافات سطور مريحة وإمكانية ضبط حجم الخط وتخفيف الحركة مباشرة من إعدادات الراحة.',
+        highlights: [
+          'تسلسل هرمي واضح للعناوين والنصوص القصيرة.',
+          'تباعد مريح بين الأسطر والبطاقات لتجنب التكدس البصري.',
+          'خيارات مخصصة لتكبير الخط وتهدئة الحركة.'
+        ],
+        prototypeLink: 'comfort',
+        prototypeLabel: 'تجربة تفضيلات الراحة'
+      },
+      {
+        num: '05',
+        title: 'الواجهة الدائرية والراحة المكانية',
+        subtitle: 'حواف ناعمة ومساحات تنفّس تقلل التشتت',
+        summary: 'تُصاغ البطاقات والأزرار بزوايا دائرية ناعمة ومساحات فراغ متوازنة لتبدو الواجهة كحيز مريح ودافئ لا كلوحة بيانات مزدحمة.',
+        highlights: [
+          'زوايا منحنية ناعمة تخفف الحدة البصرية في الشاشات.',
+          'تقسيم المحتوى إلى وحدات صغيرة سهلة الاستيعاب.',
+          'ترك مساحات بيضاء/دافئة كافية لإراحة العين.'
+        ],
+        prototypeLink: 'guidance',
+        prototypeLabel: 'معاينة في الإرشاد والموارد'
+      },
+      {
+        num: '06',
+        title: 'نبرة الصوت والرسائل الدقيقة',
+        subtitle: 'كلمات ترحيبية وتنبيهات مطمئنة في كل تفصيل',
+        summary: 'تتجنب الرسائل الدقيقة لغة الإلزام أو الاستعجال، وتستبدلها بعبارات داعمة مثل «خذ وقتك» و«مشاركة اختيارية».',
+        highlights: [
+          'رسائل ترحيب هادئة تخفف رهبة البداية.',
+          'توضيح شفاف لآداب الحوار قبل بدء أي محادثة.',
+          'عبارات ختامية لطيفة تحترم قرار المستخدم في التوقف.'
+        ],
+        prototypeLink: 'chat',
+        prototypeLabel: 'معاينة في المحادثة الآمنة'
+      },
+      {
+        num: '07',
+        title: 'السوشيال ميديا والموك أبز',
+        subtitle: 'اتساق الهوية عبر البطاقات التعريفية ومعاينات الجوال',
+        summary: 'تظهر منشورات «ملاذ» ومعاينات الأجهزة بنفس الألوان الهادئة والعناوين الموجزة والبطاقات الدائرية لضمان تعرف فوري على الهوية.',
+        highlights: [
+          'قوالب بطاقات تعريفية ترتكز على #2F5D50 و#F6F5F0.',
+          'إبراز فكرة واحدة واضحة في كل بطاقة أو منشور.',
+          'تطابق بصري كامل بين الهوية التسويقية وشاشات التطبيق.'
+        ],
+        prototypeLink: 'circles',
+        prototypeLabel: 'استعراض البطاقات في الدوائر'
+      },
+      {
+        num: '08',
+        title: 'مواءمة النموذج الأولي (5 شاشات)',
+        subtitle: 'ترجمة الهوية إلى رحلة مستخدم متكاملة وسلسة',
+        summary: 'يتكامل الدليل مع النموذج التفاعلي عبر 5 شاشات مترابطة: الرئيسية، دوائر الدعم، المحادثة الآمنة، الإرشاد والموارد، وتفضيلات الراحة.',
+        highlights: [
+          'رحلة تنقل واضحة ومباشرة في أي لحظة.',
+          'تفاعل فوري يظهر أثر اختيارات المستخدم داخل الشاشات.',
+          'جاهزية كاملة للنشر والاختبار على الويب والجوال.'
+        ],
+        prototypeLink: 'home',
+        prototypeLabel: 'البدء بتجربة النموذج'
+      }
+    ];
+
+    let currentStepIndex = 0;
+    let breathingIdx = 0;
+    const breathingSteps = [
+      'استنشق بهدوء لـ 4 ثوانٍ، أمسك النفس بلطف لـ 4 ثوانٍ، ثم أخرج الزفير ببطء لـ 6 ثوانٍ.',
+      'لاحظ موضع كتفيك وفكّك؛ أنزلهما برفق بعيداً عن التوتر دون إجبار.',
+      'اختر فكرة مطمئنة واحدة لليوم، واترك بقية المهام لوقتها المناسب.'
+    ];
+
+    const screenTitles = {
+      home: 'ملاذ • الرئيسية',
+      circles: 'ملاذ • دوائر الدعم',
+      chat: 'ملاذ • المحادثة الآمنة',
+      guidance: 'ملاذ • الإرشاد والموارد',
+      comfort: 'ملاذ • تفضيلات الراحة'
+    };
+
+    const screenArabicNames = {
+      home: 'الرئيسية',
+      circles: 'دوائر الدعم',
+      chat: 'المحادثة الآمنة',
+      guidance: 'الإرشاد والموارد',
+      comfort: 'تفضيلات الراحة'
+    };
+
+    function showToast(message) {
+      const banner = document.getElementById('toastBanner');
+      const text = document.getElementById('toastMessage');
+      if (!banner || !text) return;
+      text.textContent = message;
+      banner.classList.remove('hidden');
+      clearTimeout(window.__malathToastTimer);
+      window.__malathToastTimer = setTimeout(hideToast, 2800);
+    }
+
+    function hideToast() {
+      const banner = document.getElementById('toastBanner');
+      if (banner) banner.classList.add('hidden');
+    }
+
+    function copyTextFallback(text, successMsg) {
+      try {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = text;
+        tempInput.setAttribute('readonly', '');
+        tempInput.style.position = 'absolute';
+        tempInput.style.left = '-9999px';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showToast(successMsg);
+      } catch (err) {
+        showToast('تعذر النسخ تلقائياً، يمكنك النسخ يدوياً.');
+      }
+    }
+
+    function copyHex(hex, label) {
+      copyTextFallback(hex, `تم نسخ ${label} (${hex})`);
+    }
+
+    function copySubmissionSummary() {
+      const summary = 'مشروع ملاذ (Malath): مساحة رقمية هادئة وآمنة للرفاه المجتمعي والتواصل الآمن، يجمع بين دليل هوية بصرية من 8 خطوات (#2F5D50 و#F6F5F0) ونموذج تفاعلي يضم 5 شاشات: الرئيسية، دوائر الدعم، المحادثة الآمنة، الإرشاد والموارد، وتفضيلات الراحة.';
+      copyTextFallback(summary, 'تم نسخ وصف التسليم لمشروع «ملاذ»');
+    }
+
+    function renderSteps() {
+      const bar = document.getElementById('stepsTabBar');
+      const detail = document.getElementById('stepDetailCard');
+      const badge = document.getElementById('activeStepBadge');
+      if (!bar || !detail) return;
+
+      bar.innerHTML = identitySteps
+        .map((step, idx) => {
+          const isActive = idx === currentStepIndex;
+          return `
+            <button
+              type="button"
+              onclick="selectStep(${idx})"
+              class="p-2.5 rounded-2xl border text-right transition ${
+                isActive
+                  ? 'bg-malath-green text-white border-malath-green shadow-sm'
+                  : 'bg-malath-card text-malath-ink border-malath-border hover:border-malath-green'
+              }"
+            >
+              <div class="text-[11px] font-bold ${isActive ? 'text-emerald-100' : 'text-malath-green'}">خطوة ${step.num}</div>
+              <div class="text-xs font-bold line-clamp-1 mt-0.5">${step.title}</div>
+            </button>
+          `;
+        })
+        .join('');
+
+      const active = identitySteps[currentStepIndex];
+      if (badge) badge.textContent = `${active.num} / 08`;
+
+      detail.classList.remove('screen-enter');
+      void detail.offsetWidth;
+      detail.classList.add('screen-enter');
+
+      detail.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-7 space-y-3.5">
+            <div class="flex items-center gap-2.5">
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-malath-greenSoft text-malath-green">الخطوة ${active.num} من 08</span>
+              <span class="text-xs text-malath-muted">${active.subtitle}</span>
+            </div>
+            <h3 class="font-display text-xl sm:text-2xl font-bold text-malath-ink">${active.title}</h3>
+            <p class="text-sm sm:text-base text-malath-muted leading-relaxed">${active.summary}</p>
+            <div class="pt-1 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onclick="jumpToScreen('${active.prototypeLink}')"
+                class="px-4 py-2.5 rounded-2xl bg-malath-green text-white text-xs sm:text-sm font-semibold hover:bg-malath-greenDark transition"
+              >
+                ${active.prototypeLabel} ←
+              </button>
+              <button
+                type="button"
+                onclick="nextStep()"
+                class="px-4 py-2.5 rounded-2xl bg-malath-bg text-malath-ink border border-malath-border text-xs sm:text-sm font-semibold hover:bg-malath-sand transition"
+              >
+                الخطوة التالية
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-malath-bg rounded-2xl p-4 sm:p-5 border border-malath-border space-y-3">
+            <div class="text-xs font-bold text-malath-green">المخرجات والتطبيق العملي</div>
+            <ul class="space-y-2.5">
+              ${active.highlights
+                .map(
+                  (item) => `
+                <li class="flex items-start gap-2.5 text-xs sm:text-sm text-malath-ink leading-relaxed">
+                  <span class="w-4 h-4 rounded-full bg-malath-green text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-1">•</span>
+                  <span>${item}</span>
+                </li>
+              `
+                )
+                .join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectStep(index) {
+      currentStepIndex = index;
+      renderSteps();
+    }
+
+    function nextStep() {
+      currentStepIndex = (currentStepIndex + 1) % identitySteps.length;
+      renderSteps();
+    }
+
+    function switchScreen(screenKey) {
+      const screens = document.querySelectorAll('.app-screen');
+      screens.forEach((el) => el.classList.add('hidden'));
+
+      const target = document.getElementById(`screen-${screenKey}`);
+      if (target) {
+        target.classList.remove('hidden');
+        target.classList.remove('screen-enter');
+        void target.offsetWidth;
+        target.classList.add('screen-enter');
+      }
+
+      const phoneBody = document.getElementById('phoneBody');
+      if (phoneBody) phoneBody.scrollTop = 0;
+
+      const headerTitle = document.getElementById('phoneHeaderTitle');
+      if (headerTitle && screenTitles[screenKey]) {
+        headerTitle.textContent = screenTitles[screenKey];
+      }
+
+      const pill = document.getElementById('currentScreenPill');
+      if (pill && screenArabicNames[screenKey]) {
+        pill.textContent = screenArabicNames[screenKey];
+      }
+
+      document.querySelectorAll('.phone-nav-item').forEach((btn) => {
+        const isCurrent = btn.getAttribute('data-nav') === screenKey;
+        btn.className = isCurrent
+          ? 'phone-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-malath-green bg-malath-greenSoft font-bold'
+          : 'phone-nav-item flex flex-col items-center justify-center py-1.5 rounded-xl text-malath-muted hover:text-malath-ink font-medium';
+      });
+
+      document.querySelectorAll('.screen-jump-btn').forEach((btn) => {
+        const isCurrent = btn.getAttribute('data-screen-btn') === screenKey;
+        const sub = btn.querySelector('div > div:last-child');
+        const tag = btn.querySelector('span');
+        if (isCurrent) {
+          btn.className = 'screen-jump-btn flex items-center justify-between p-3.5 rounded-2xl border text-right transition bg-malath-green text-white border-malath-green' + (screenKey === 'comfort' ? ' sm:col-span-2' : '');
+          if (sub) sub.className = 'text-xs opacity-85';
+          if (tag) tag.className = 'text-xs font-bold px-2 py-0.5 rounded-lg bg-white/15';
+        } else {
+          btn.className = 'screen-jump-btn flex items-center justify-between p-3.5 rounded-2xl border text-right transition bg-malath-bg text-malath-ink border-malath-border hover:border-malath-green' + (screenKey === 'comfort' ? ' sm:col-span-2' : '');
+          if (sub) sub.className = 'text-xs text-malath-muted';
+          if (tag) tag.className = 'text-xs font-bold px-2 py-0.5 rounded-lg bg-malath-greenSoft text-malath-green';
+        }
+      });
+    }
+
+    function jumpToScreen(screenKey) {
+      switchScreen(screenKey);
+      const section = document.getElementById('prototype-section');
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function setMood(moodLabel) {
+      const badge = document.getElementById('moodBadge');
+      if (badge) badge.textContent = `حالتي: ${moodLabel}`;
+
+      document.querySelectorAll('.mood-chip').forEach((chip) => {
+        const active = chip.textContent.trim() === moodLabel;
+        chip.className = active
+          ? 'mood-chip px-3 py-1 rounded-full text-xs font-semibold bg-white text-malath-green'
+          : 'mood-chip px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-white hover:bg-white/25';
+      });
+
+      showToast(`تم تسجيل حالتك بهدوء: ${moodLabel}`);
+    }
+
+    function toggleCircle(btn, circleName) {
+      const joined = btn.getAttribute('data-joined') === 'true';
+      if (!joined) {
+        btn.setAttribute('data-joined', 'true');
+        btn.textContent = 'منضم للدائرة ✓ (مغادرة بهدوء)';
+        btn.className = 'w-full py-2 rounded-xl bg-malath-greenSoft text-malath-green text-xs font-bold border border-malath-green/30 transition';
+        showToast(`انضممت بهدوء إلى ${circleName}`);
+      } else {
+        btn.setAttribute('data-joined', 'false');
+        btn.textContent = 'انضمام هادئ للدائرة';
+        btn.className = 'w-full py-2 rounded-xl bg-malath-green text-white text-xs font-bold hover:bg-malath-greenDark transition';
+        showToast(`غادرت ${circleName} بكل أريحية`);
+      }
+    }
+
+    function sendSafeMessage(event) {
+      event.preventDefault();
+      const input = document.getElementById('chatInput');
+      const list = document.getElementById('chatMessagesList');
+      if (!input || !list) return;
+
+      const value = input.value.trim();
+      if (!value) {
+        showToast('اكتب رسالة قصيرة أولاً ليتم إرسالها.');
+        return;
+      }
+
+      const safeText = value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const bubble = document.createElement('div');
+      bubble.className = 'bg-malath-green text-white rounded-2xl rounded-tl-sm p-3 max-w-[85%] mr-auto screen-enter';
+      bubble.innerHTML = `
+        <p class="text-xs leading-relaxed">${safeText}</p>
+        <div class="text-[10px] text-emerald-100/80 mt-1">أنت • الآن</div>
+      `;
+      list.appendChild(bubble);
+      input.value = '';
+      list.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      showToast('تم إرسال مشاركتك في المحادثة الآمنة');
+    }
+
+    function cycleBreathingTip() {
+      breathingIdx = (breathingIdx + 1) % breathingSteps.length;
+      const textEl = document.getElementById('breathingStepText');
+      if (textEl) {
+        textEl.textContent = breathingSteps[breathingIdx];
+      }
+      showToast(`انتقلت إلى خطوة التهدئة ${breathingIdx + 1} من ${breathingSteps.length}`);
+    }
+
+    function setFontScale(scale, label) {
+      document.documentElement.style.setProperty('--malath-scale', String(scale));
+      const labelEl = document.getElementById('fontScaleLabel');
+      if (labelEl) labelEl.textContent = label;
+      showToast(`تم ضبط حجم الخط: ${label}`);
+    }
+
+    function toggleCalmMotion() {
+      document.body.classList.toggle('calm-motion');
+      const active = document.body.classList.contains('calm-motion');
+      const btn = document.getElementById('motionToggleBtn');
+      if (btn) {
+        btn.textContent = active ? 'حركة مخففة جداً' : 'مفعل بلطف';
+        btn.className = active
+          ? 'px-3.5 py-1.5 rounded-xl bg-malath-green text-white text-xs font-bold'
+          : 'px-3.5 py-1.5 rounded-xl bg-malath-bg border border-malath-border text-xs font-bold text-malath-ink';
+      }
+      showToast(active ? 'تم تفعيل وضع تقليل الحركة' : 'تمت العودة للانتقالات اللطيفة');
+    }
+
+    function toggleSoftContrast() {
+      document.body.classList.toggle('soft-contrast');
+      const active = document.body.classList.contains('soft-contrast');
+      const btn = document.getElementById('contrastToggleBtn');
+      if (btn) {
+        btn.textContent = active ? 'دفء إضافي' : 'قياسي';
+        btn.className = active
+          ? 'px-3.5 py-1.5 rounded-xl bg-malath-green text-white text-xs font-bold'
+          : 'px-3.5 py-1.5 rounded-xl bg-malath-bg border border-malath-border text-xs font-bold text-malath-ink';
+      }
+      showToast(active ? 'تم تفعيل الخلفية الدافئة الإضافية' : 'تمت العودة للخلفية القياسية');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSteps();
+      switchScreen('home');
+    });
+  </script>
+</body>
+</html>
